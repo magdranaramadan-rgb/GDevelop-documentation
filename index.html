@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir=" rtl">
 <head>
+  <meta name="google-site-verification" content="A6TjYe_eWldJK5EE3spJ8eNGRkLXKarVdF0T8jBRy18" />
     <meta charset="UTF-8">
-    <title>منصة مجتوبيد - إصدار الأوامر الذكية</title>
+    <title> منصة مجتوبيد - إصدار الأوامر الذكية</title>
     <style>
         :root { 
             --bg: #131314; 
@@ -24,7 +25,7 @@
             transition: 0.5s;
         }
 
-        /* شاشة الدخول */
+        /*  شاشة الدخول والتسمية  */
         #login-screen { 
             position: fixed; inset: 0; 
             background: radial-gradient(circle, #1e1f20 0%, #131314 100%); 
@@ -36,11 +37,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        header { 
+        header {  
             padding: 10px 20px; background: var(--card); 
             display: flex; justify-content: space-between; 
             align-items: center; border-bottom: 1px solid #444; 
-        }
+        } 
+      
 
         .logo-container { position: relative; width: 120px; height: 50px; cursor: pointer; }
         .logo-part { position: absolute; font-weight: bold; font-size: 24px; transition: 0.6s; width: 100%; text-align: center; }
@@ -49,26 +51,26 @@
         .logo-container:hover .logo-flipped { transform: rotateX(0deg); opacity: 1; }
         .logo-container:hover .logo-normal { transform: rotateX(-180deg); opacity: 0; }
 
-        #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+                  #chat-container { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
         
-        .message-wrapper { display: flex; align-items: flex-end; gap: 10px; max-width: 85%; animation: slideUp 0.3s ease; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+   .message-wrapper { display: flex; align-items: flex-end; gap: 10px; max-width: 85%; animation: slideUp 0.3s ease; }
+             @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .user-wrap { align-self: flex-end; flex-direction: row-reverse; }
-        .ai-wrap { align-self: flex-start; }
+       .user-wrap { align-self: flex-end; flex-direction: row-reverse; }
+               .ai-wrap { align-self: flex-start; }
 
-        .message { padding: 12px 18px; border-radius: 18px; font-size: 16px; line-height: 1.5; }
-        .user-msg { background: var(--accent); color: white; border-bottom-right-radius: 4px; }
-        .ai-msg { background: var(--card); border: 1px solid #444; border-bottom-left-radius: 4px; }
+    .message { padding: 12px 18px; border-radius: 18px; font-size: 16px; line-height: 1.5; }
+                .user-msg { background: var(--accent); color: white; border-bottom-right-radius: 4px; }
+            .ai-msg { background: var(--card); border: 1px solid #444; border-bottom-left-radius: 4px; }
 
-        #typing-indicator { display: none; align-self: flex-start; margin-bottom: 10px; }
-        .islam-loader { position: relative; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; }
-        .islam-ico { font-size: 22px; animation: rotate360 4s linear infinite; }
-        .ring { position: absolute; width: 38px; height: 38px; border: 3px solid transparent; border-top: 3px solid var(--islam-green); border-radius: 50%; animation: spinRing 1s linear infinite; }
-
+    #typing-indicator { display: none; align-self: flex-start; margin-bottom: 10px; }
+             .islam-loader { position: relative; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; }
+     .islam-ico { font-size: 22px; animation: rotate360 4s linear infinite; }
+                  .ring { position: absolute; width: 38px; height: 38px; border: 3px solid transparent; border-top: 3px solid var(--islam-green); border-radius: 50%; animation: spinRing 1s linear infinite; }
         @keyframes spinRing { 100% { transform: rotate(360deg); } }
+      
         @keyframes rotate360 { 0%, 50% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
+ 
         .input-area { padding: 20px; display: flex; justify-content: center; background: var(--bg); }
         .input-box { background: var(--card); border-radius: 30px; padding: 5px 15px; display: flex; width: 100%; max-width: 800px; border: 1px solid var(--accent); }
         input#user-input { background: transparent; border: none; color: white; flex: 1; outline: none; padding: 10px; font-size: 16px; }
