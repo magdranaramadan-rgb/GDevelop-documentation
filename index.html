@@ -16,7 +16,6 @@
         }
         body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--main-bg); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; transition: 0.3s; }
         
-        /* شاشة البداية دائماً */
         #onboarding { position: fixed; inset: 0; background: var(--main-bg); z-index: 2000; display: flex; align-items: center; justify-content: center; }
         .form-card { background: var(--card-bg); padding: 40px; border-radius: 24px; width: 450px; border: 1px solid var(--accent); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .form-card input, .form-card textarea { width: 100%; padding: 12px; margin: 15px 0; border-radius: 12px; border: 1px solid var(--border); background: var(--main-bg); color: var(--text-main); box-sizing: border-box; }
@@ -49,6 +48,9 @@
         .input-box { background: var(--hover-bg); border-radius: 35px; padding: 12px 25px; display: flex; align-items: center; border: 1px solid var(--border); }
         input#user-input { flex: 1; background: transparent; border: none; color: var(--text-main); outline: none; font-size: 16px; }
 
+        /* إضافة جملة الحقوق بالأسفل */
+        .footer-rights { padding: 10px; text-align: center; font-size: 12px; color: var(--accent); border-top: 1px solid var(--border); font-weight: bold; }
+
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
@@ -71,6 +73,9 @@
             <div class="setting-item" onclick="toggleTheme()">🌓 تبديل المظهر</div>
             <div class="setting-item" onclick="toggleLang()" id="lang-btn">🌐 اللغة: العربية</div>
             <div class="setting-item" onclick="alert('سياقك محفوظ ونشط لهذه الجلسة!')">👤 الحالة الشخصية: نشط</div>
+        </div>
+        <div class="footer-rights">
+            تم التطوير والتصميم من قبل مجد اياد نقشة دون حذف اي حرف منه
         </div>
     </div>
 
@@ -96,16 +101,11 @@
         let sessions = JSON.parse(localStorage.getItem('majtubid_pro_data') || '{}');
         let currentChatId = Date.now();
 
-        // هذه الدالة تم تعديلها لتفتح الشاشة دائماً
         function saveProfile() {
             const name = document.getElementById('ob-name').value;
             const bio = document.getElementById('ob-bio').value;
             if(!name) return alert("يرجى كتابة اسمك للمتابعة");
-            
-            // نحفظ البيانات في الذاكرة
             localStorage.setItem('majtubid_profile', JSON.stringify({name, bio}));
-            
-            // نخفي شاشة الدخول
             document.getElementById('onboarding').style.display = 'none';
             document.getElementById('welcome-msg').innerText = `أهلاً يا ${name}`;
             renderHistory();
@@ -162,11 +162,9 @@
             const text = input.value.trim();
             if(!text) return;
             input.value = "";
-            
             document.getElementById('snd-send').play();
             const win = document.getElementById('chat-window');
             const uId = "msg-" + Date.now();
-            
             const userHtml = `
                 <div class="msg-row user-row">
                     <div class="bubble user-bubble" id="${uId}">${text}</div>
@@ -183,15 +181,11 @@
             const win = document.getElementById('chat-window');
             const aiId = "ai-" + Date.now();
             const aiHtml = `<div class="msg-row ai-row" id="${aiId}"><div class="bubble ai-bubble">تفكير...</div></div>`;
-            
             if(existingRow) existingRow.insertAdjacentHTML('afterend', aiHtml);
             else win.innerHTML += aiHtml;
-            
             win.scrollTop = win.scrollHeight;
-
             try {
                 const profile = JSON.parse(localStorage.getItem('majtubid_profile'));
-                let response;
                 if(text.includes("ارسم") || text.includes("صورة")) {
                     const imgUrl = `https://image.pollinations.ai/prompt/${encodeURIComponent(text)}?nologo=true&seed=${Math.random()}`;
                     document.getElementById(aiId).querySelector('.bubble').innerHTML = `<img src="${imgUrl}" style="width:100%; border-radius:15px;">`;
@@ -204,14 +198,12 @@
             } catch {
                 document.getElementById(aiId).querySelector('.bubble').innerText = "حدث خطأ في الاتصال.";
             }
-
             sessions[currentChatId] = { title: text.substring(0,25), html: win.innerHTML };
             localStorage.setItem('majtubid_pro_data', JSON.stringify(sessions));
             renderHistory();
             win.scrollTop = win.scrollHeight;
         }
 
-        // عند تحميل الصفحة: نقوم بتعبئة الحقول بالبيانات القديمة لكن نترك الشاشة ظاهرة
         window.onload = () => {
             const p = localStorage.getItem('majtubid_profile');
             if(p) {
@@ -219,10 +211,8 @@
                 document.getElementById('ob-name').value = data.name;
                 document.getElementById('ob-bio').value = data.bio;
             }
-            // لاحظ: لم نقم بإخفاء onboarding هنا، لذا ستظهر دائماً
             renderHistory();
         };
     </script>
 </body>
-</html> 
-                        تم التطوير والتصميم من قبل  مجد اياد نقشة 
+</html>
