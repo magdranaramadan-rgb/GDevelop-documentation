@@ -1,8 +1,8 @@
-   <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>مجتوبيد PRO - Full Experience</title>
     <style>
         :root {
@@ -14,13 +14,35 @@
             --sidebar-bg: #f0f2f5; --main-bg: #ffffff; --text-main: #1f1f1f;
             --border: #ddd; --hover-bg: #e4e6e9; --card-bg: #f8f9fa;
         }
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: var(--main-bg); color: var(--text-main); display: flex; height: 100vh; overflow: hidden; transition: 0.3s; }
         
-        #onboarding { position: fixed; inset: 0; background: var(--main-bg); z-index: 2000; display: flex; align-items: center; justify-content: center; }
-        .form-card { background: var(--card-bg); padding: 40px; border-radius: 24px; width: 450px; border: 1px solid var(--accent); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        /* تعديل أساسي لعرض الصفحة */
+        body { 
+            margin: 0; 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: var(--main-bg); 
+            color: var(--text-main); 
+            display: flex; 
+            height: 100vh; 
+            width: 100vw;
+            overflow: hidden; 
+            transition: 0.3s; 
+        }
+
+        #onboarding { position: fixed; inset: 0; background: var(--main-bg); z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        .form-card { background: var(--card-bg); padding: 30px; border-radius: 24px; width: 100%; max-width: 450px; border: 1px solid var(--accent); text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
         .form-card input, .form-card textarea { width: 100%; padding: 12px; margin: 15px 0; border-radius: 12px; border: 1px solid var(--border); background: var(--main-bg); color: var(--text-main); box-sizing: border-box; }
 
-        #sidebar { width: 280px; background-color: var(--sidebar-bg); display: flex; flex-direction: column; border-left: 1px solid var(--border); transition: 0.3s; }
+        /* تعديل الـ Sidebar ليتناسب مع الهاتف */
+        #sidebar { 
+            width: 280px; 
+            background-color: var(--sidebar-bg); 
+            display: flex; 
+            flex-direction: column; 
+            border-left: 1px solid var(--border); 
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+
         .new-chat-btn { background: var(--accent); color: white; border: none; padding: 12px; border-radius: 25px; margin: 20px; cursor: pointer; font-weight: bold; }
         .history-list { flex: 1; overflow-y: auto; padding: 0 15px; }
         .history-item { display: flex; justify-content: space-between; align-items: center; padding: 10px; border-radius: 10px; cursor: pointer; margin-bottom: 5px; font-size: 14px; }
@@ -29,14 +51,16 @@
         .setting-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 10px; cursor: pointer; font-size: 14px; }
         .setting-item:hover { background: var(--hover-bg); }
 
-        #main-content { flex: 1; display: flex; flex-direction: column; }
+        #main-content { flex: 1; display: flex; flex-direction: column; width: 100%; overflow: hidden; }
         header { padding: 15px 25px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
+        
+        /* تعديل منطقة الشات لتأخذ مساحة أكبر في الهاتف */
         #chat-window { flex: 1; overflow-y: auto; padding: 20px 15%; display: flex; flex-direction: column; gap: 25px; }
 
         .msg-row { display: flex; flex-direction: column; gap: 8px; animation: slideUp 0.3s ease; }
         .user-row { align-items: flex-end; }
         .ai-row { align-items: flex-start; }
-        .bubble { padding: 15px 20px; border-radius: 20px; max-width: 85%; position: relative; line-height: 1.6; }
+        .bubble { padding: 15px 20px; border-radius: 20px; max-width: 85%; position: relative; line-height: 1.6; word-wrap: break-word; }
         .user-bubble { background: var(--accent); color: white; border-bottom-right-radius: 4px; }
         .ai-bubble { background: var(--hover-bg); border: 1px solid var(--border); border-bottom-left-radius: 4px; }
         
@@ -46,10 +70,25 @@
 
         .input-container { padding: 20px 15%; background: var(--main-bg); }
         .input-box { background: var(--hover-bg); border-radius: 35px; padding: 12px 25px; display: flex; align-items: center; border: 1px solid var(--border); }
-        input#user-input { flex: 1; background: transparent; border: none; color: var(--text-main); outline: none; font-size: 16px; }
+        input#user-input { flex: 1; background: transparent; border: none; color: var(--text-main); outline: none; font-size: 16px; width: 100%; }
 
-        /* إضافة جملة الحقوق بالأسفل */
-        .footer-rights { padding: 10px; text-align: center; font-size: 12px; color: var(--accent); border-top: 1px solid var(--border); font-weight: bold; }
+        .footer-rights { padding: 10px; text-align: center; font-size: 10px; color: var(--accent); border-top: 1px solid var(--border); font-weight: bold; }
+
+        /* Media Queries لإصلاح العرض على الهواتف */
+        @media (max-width: 768px) {
+            #sidebar { 
+                position: absolute; 
+                right: -280px; /* إخفاء القائمة الجانبية خارج الشاشة */
+                height: 100%; 
+                z-index: 1000;
+            }
+            /* يمكنك إضافة زر لفتح القائمة لاحقاً، حالياً جعلنا المحتوى يأخذ كامل الشاشة */
+            #main-content { width: 100vw; }
+            #chat-window { padding: 20px 5%; }
+            .input-container { padding: 15px 5%; }
+            .form-card { padding: 20px; margin: 10px; }
+            .bubble { max-width: 95%; }
+        }
 
         @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
